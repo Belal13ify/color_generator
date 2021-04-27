@@ -11,6 +11,11 @@ var random = new Random();
 // randomize() {
 //   returnedColor = (random.nextDouble() * 0xFFFFFF).toInt();
 // }
+int color = 0xffabcdef;
+int generateColor() {
+  color = (random.nextDouble() * 0xFFFFFF).toInt();
+  return color;
+}
 
 class MyApp extends StatefulWidget {
   // This widget is the root of your application.
@@ -29,7 +34,7 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Center(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
                 height: 30,
@@ -37,12 +42,18 @@ class _MyAppState extends State<MyApp> {
               Container(
                 width: 170,
                 height: 170,
-                color: Color((random.nextDouble() * 0xFFFFFF).toInt())
-                    .withOpacity(1.0),
+                color: Color(color).withOpacity(1.0),
               ),
+              SizedBox(height: 10),
+              Text(color.toRadixString(16).toUpperCase(),
+                  style: TextStyle(fontSize: 18, color: Color(0xff000000)),
+                  textAlign: TextAlign.center),
+              SizedBox(height: 10),
               ElevatedButton(
                   onPressed: () {
-                    setState(() {});
+                    setState(() {
+                      generateColor();
+                    });
                   },
                   child: Text(
                     "Generate Color",
